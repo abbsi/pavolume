@@ -34,5 +34,8 @@ nosetests.xml
 .project
 .pydevproject
 
+# Sounds directory
+sounds
+
 # vim
 .*.swp

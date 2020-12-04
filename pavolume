@@ -27,6 +27,8 @@ Options:
 from pulseaudio import PulseAudio
 from docopt import docopt
 from configparser import ConfigParser
+import gi
+gi.require_version('Notify', '0.7')
 from gi.repository import Notify
 import os
 import math
@@ -78,13 +80,16 @@ def show():
 	percent = (pa.get_volume(sink) - volume_min) / (volume_max - volume_min) * 100
 
 	if pa.get_mute(sink):
-		title = "Muted %2.0f%%" % percent
+		# title = "Muted %2.0f%%" % percent
+		title = ""
 		pb = progress_bar(volume_min, volume_max, pa.get_volume(sink), volume_increment, full_char=square_cross)
 	else:
-		title = "Volume %2.0f%%" % percent
+		# title = "Volume %2.0f%%" % percent
+		title = ""
 		pb = progress_bar(volume_min, volume_max, pa.get_volume(sink), volume_increment)
 
-	Notify.Notification.new(title, pb, "dialog-information").show()
+	# Notify.Notification.new(title, pb, "dialog-information").show()
+	os.system('dunstify -u low -r 200 "{} {}"'.format(pb, title))
 
 def volume_set(new_volume, noshow=False, quiet=False):
 	pa.set_volume(int(new_volume), sink)
