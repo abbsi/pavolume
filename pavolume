@@ -87,7 +87,7 @@ def show():
 		pb = progress_bar(volume_min, volume_max, pa.get_volume(sink), volume_increment)
 
 	# Notify.Notification.new(title, pb, "dialog-information").show()
-	os.system('dunstify -a "pavolume" -r 200 "{}"'.format(pb))
+	# os.system('dunstify -a "pavolume" -r 200 "{}"'.format(pb))
 
 def volume_set(new_volume, noshow=False, quiet=False):
 	pa.set_volume(int(new_volume), sink)
